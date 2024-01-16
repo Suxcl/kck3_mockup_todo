@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Main Page</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    .list-group-item:hover {
+        background-color: #e6e6e6;
+        cursor: pointer;
+      }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img class="navbar-brand" src="assets/to-do-list.png" width="20" height="30" alt="site logo">
+    <a class="navbar-brand" href="/index.html">To Do List</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="/index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile.html">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login.html">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register.html">Register</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid mt-5">
+    <div class="row">
+
+      
+      <div class="col-md-2">
+        
+      </div>
+
+      <!-- Main Content Column -->
+      <div class="col-md-6">
+        
+        <div class="container mt-3">
+          <h2>Your Projects in progress</h2>
+          <hr>
+          <p>Visit your <a href="/profile.html" style="text-decoration: none">profile</a> to see more info about your projects</p>
+          <hr>
+      
+          <div class="project-container">
+          
+            <div class="project">
+              <h4>Systemy baz danych</h4>
+              <p>Your half way through this project</p>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <br>
+            
+            <div class="project">
+              <h4>Komponenty</h4>
+              <p>Keep working, you doin a great job!</p>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+          </div>
+          <hr> 
+          <p></p>
+      
+        </div>
+      </div>
+
+      <!-- Sidebar Column -->
+      <div class="col-md-2">
+        <div>
+            <p class="flex-sm-row"> More about Us</p>
+        </div>
+        <hr>
+        <ul class="list-group">
+            <a href="/aboutUs.html" style="text-decoration: none">
+                <li class="list-group-item">About Us</li>
+            </a>
+            <a href="/contact.html" style="text-decoration: none">
+                <li class="list-group-item">Contact</li>
+            </a>
+            
+          </ul>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <!-- Bootstrap JS and Popper.js (required for Bootstrap functionality) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

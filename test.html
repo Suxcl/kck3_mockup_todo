@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Bootstrap Toast Example</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+  <div class="container mt-5">
+    <!-- Centered Container -->
+    <div class="row">
+      <div class="col">
+        <div class="container mx-auto">
+          <h1>Centered Container</h1>
+          <!-- Registration Form -->
+          <form id="registrationForm">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="registerBtn">Register</button>
+            <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+          </form>
+          <!-- Toast Container -->
+          <div id="toastContainer" class="mt-3"></div>
+        </div>
+      </div>
+
+      <!-- Container to the Right -->
+      <div class="col">
+        <div class="container" id="rightContainer">
+          <!-- Toasts will be shown here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and Popper.js (required for Bootstrap functionality) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // JavaScript for form submission and toast display
+    document.getElementById('registrationForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      // Your registration logic here
+
+      // Display success toast
+      showToast('success', 'Registration successful!');
+
+      // Optional: Redirect to index.html after registration
+      setTimeout(function () {
+        window.location.href = '/index.html';
+      }, 3000); // Redirect after 3 seconds (adjust as needed)
+    });
+
+    document.getElementById('cancelBtn').addEventListener('click', function () {
+      // Display cancel toast
+      showToast('info', 'Registration canceled.');
+
+      // Redirect to index.html after cancel
+      setTimeout(function () {
+        window.location.href = '/index.html';
+      }, 3000); // Redirect after 3 seconds (adjust as needed)
+    });
+
+    // Function to show toast
+    function showToast(type, message) {
+      var toastContainer = document.getElementById('toastContainer');
+      
+      var toast = document.createElement('div');
+      toast.classList.add('toast');
+      toast.setAttribute('role', 'alert');
+      toast.setAttribute('aria-live', 'assertive');
+      toast.setAttribute('aria-atomic', 'true');
+      toast.setAttribute('data-delay', '5000');
+
+      var toastHeader = document.createElement('div');
+      toastHeader.classList.add('toast-header');
+
+      var strong = document.createElement('strong');
+      strong.classList.add('mr-auto');
+      strong.textContent = type === 'success' ? 'Success' : 'Info';
+
+      var closeButton = document.createElement('button');
+      closeButton.type = 'button';
+      closeButton.classList.add('ml-2', 'mb-1', 'close');
+      closeButton.setAttribute('data-dismiss', 'toast');
+      closeButton.setAttribute('aria-label', 'Close');
+
+      var closeIcon = document.createElement('span');
+      closeIcon.setAttribute('aria-hidden', 'true');
+      closeIcon.innerHTML = '&times;';
+
+      closeButton.appendChild(closeIcon);
+
+      toastHeader.appendChild(strong);
+      toastHeader.appendChild(closeButton);
+
+      var toastBody = document.createElement('div');
+      toastBody.classList.add('toast-body');
+      toastBody.textContent = message;
+
+      toast.appendChild(toastHeader);
+      toast.appendChild(toastBody);
+
+      toastContainer.innerHTML = ''; // Clear existing toasts
+      toastContainer.appendChild(toast);
+
+      // Create a new Toast instance and show it
+      var toastInstance = new bootstrap.Toast(toast);
+      toastInstance.show();
+    }
+  </script>
+
+</body>
+
+</html>

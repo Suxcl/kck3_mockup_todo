@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Register</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script type="text/javascript" src="js/toast.js"></script>
+</head>
+
+<body>
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col">
+        <div class="container mx-auto">
+          <h1>Register</h1>
+          <!-- Form -->
+          <form id="registrationForm">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="registerBtn">Register</button>
+            <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+          </form>
+          
+          
+        </div>
+      </div>
+
+      <div class="col">
+        <div id="toastContainer" class="mt-5">
+          <!-- Toasts -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      showToast('success', 'Registration successful!');
+      setTimeout(function () {
+        window.location.href = '/index.html';
+      }, 2000); 
+    });
+
+    document.getElementById('cancelBtn').addEventListener('click', function () {
+      showToast('info', 'Registration canceled.');
+      setTimeout(function () {
+        window.location.href = '/index.html';
+      }, 2000); 
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

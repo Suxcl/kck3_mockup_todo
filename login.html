@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script type="text/javascript" src="js/toast.js"></script>
+</head>
+
+<body>
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col">
+        <div class="container mx-auto">
+          <h1>Login</h1>
+          <!-- Form -->
+          <form id="loginForm">
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="loginBtn">Login</button>
+            <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="col">
+        <div id="toastContainer" class="mt-3">
+          <!-- Toasts -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and Popper.js (required for Bootstrap functionality) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // JavaScript for form submission and toast display
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      
+
+      // Display success toast
+      showToast('success', 'Registration successful!');
+
+      // Optional: Redirect to index.html after registration
+      setTimeout(function () {
+        window.location.href = '/index.html';
+      }, 2000); // Redirect after 3 seconds (adjust as needed)
+    });
+
+    document.getElementById('cancelBtn').addEventListener('click', function () {
+      // Display cancel toast
+      showToast('info', 'Registration canceled.');
+
+      // Redirect to index.html after cancel
+      setTimeout(function () {
+        window.location.href = '/index.html';
+      }, 2000); // Redirect after 3 seconds (adjust as needed)
+    });
+
+  </script>
+
+</body>
+
+</html>

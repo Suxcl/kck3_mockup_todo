@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>User Profile</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    
+    .list-group-item:hover {
+      background-color: #e6e6e6;
+      cursor: pointer;
+    }
+    .completed-task {
+      background-color: #d4edda; /* Green background for completed tasks */
+    }
+    .completed-project {
+      background-color: #579951; /* Strikethrough text for completed projects */
+    }
+    :root {
+        --numDays: 5;
+        --numHours: 3;
+        --timeHeight: 60px;
+        --calBgColor: #fff1f8;
+        --eventBorderColor: #f2d3d8;
+        --eventColor1: #ffd6d1;
+        --eventColor2: #fafaa3;
+        --eventColor3: #e2f8ff;
+        --eventColor4: #d1ffe6;
+      }
+      
+      .calendar {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: auto 1fr;
+        margin: 2rem;
+      }
+      
+      .timeline {
+        display: grid;
+        grid-template-rows: repeat(var(--numHours), var(--timeHeight));
+      }
+      
+      .days {
+        display: grid;
+        grid-column: 2;
+        gap: 5px;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+      
+      .events {
+        display: grid;
+        grid-template-rows: repeat(var(--numHours), var(--timeHeight));
+        border-radius: 5px;
+        background: var(--calBgColor);
+      }
+      
+      .start-10 {
+        grid-row-start: 2;
+      }
+      
+      .start-12 {
+        grid-row-start: 4;
+      }
+      
+      .start-1 {
+        grid-row-start: 5;
+      }
+      
+      .start-2 {
+        grid-row-start: 6;
+      }
+      
+      .end-12 {
+        grid-row-end: 4;
+      }
+      
+      .end-1 {
+        grid-row-end: 5;
+      }
+      
+      .end-3 {
+        grid-row-end: 7;
+      }
+      
+      .end-4 {
+        grid-row-end: 8;
+      }
+      
+      .end-5 {
+        grid-row-end: 9;
+      }
+      
+      
+      .title {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+      
+      .event {
+        border: 1px solid var(--eventBorderColor);
+        border-radius: 5px;
+        padding: 0.5rem;
+        margin: 0 0.5rem;
+        background: white;
+      }
+      
+      .space,
+      .date {
+        height: 60px
+      }
+
+      
+      body {
+        font-family: system-ui, sans-serif;
+      }
+      
+      .corp-fi {
+        background: var(--eventColor1);
+      }
+      
+      .ent-law {
+        background: var(--eventColor2);
+      }
+      
+      .writing {
+        background: var(--eventColor3);
+      }
+      
+      .securities {
+        background: var(--eventColor4);
+      }
+      
+      .date {
+        display: flex;
+        gap: 1em;
+      }
+      
+      .date-num {
+        font-size: 3rem;
+        font-weight: 600;
+        display: inline;
+      }
+      
+      .date-day {
+        display: inline;
+        font-size: 3rem;
+        font-weight: 100;
+      }
+  </style>
+</head>
+
+<body>
+
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img class="navbar-brand" src="assets/to-do-list.png" width="20" height="30" alt="site logo">
+    <a class="navbar-brand" href="/index.html">To Do List</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile.html">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login.html">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register.html">Register</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid mt-3">
+    <div class="row">
+
+      <!-- Left Container for Options -->
+      <div class="col-lg-2">
+        <div class="container bg-light p-3">
+          <h4>Options</h4>
+          <ul class="list-group" id="optionsList">
+            <li class="list-group-item" data-option="calendar">Calendar</li>
+            <li class="list-group-item" data-option="todayTasks">Today Tasks</li>
+            <li class="list-group-item" data-option="upcomingTasks">Upcoming Tasks</li>
+            <li class="list-group-item" data-option="filteringTasks">Filtering Tasks</li>
+            <li class="list-group-item" data-toggle="modal" data-target="#newProjectDialog" data-option="newProject">New Project</li>
+          </ul>
+
+          <hr>
+
+          <h4>Projects</h4>
+          <ul class="list-group" id="projectsList"></ul>
+
+          <hr>
+
+          <h4>Completed Projects</h4>
+          <ul class="list-group" id="completedProjectsList"></ul>
+        </div>
+      </div>
+
+      <!-- Main Container for Tasks -->
+      <div class="col-lg-10">
+        <div class="container bg-light p-3" id="mainContent">
+          
+          <h2>Your Calendar</h2>
+          <main>
+            <div class="calendar">
+                <div class="timeline">
+                <div class="spacer"></div>
+                <div class="time-marker"></div>
+                <div class="time-marker"></div>
+                <div class="time-marker"></div>
+                <div class="time-marker"></div>
+                <div class="time-marker"></div>
+                <div class="time-marker"></div>
+                <div class="time-marker"></div>
+                <div class="time-marker"></div>
+                <div class="time-marker"></div>
+                <div class="time-marker"></div>
+                
+                </div>
+                <div class="days">
+                <div class="day mon">
+                    <div class="date">
+                    <p class="date-num">9</p>
+                    <p class="date-day">Mon</p>
+                    </div>
+                    <div class="events">
+                    <div class="event start-10 end-12" style="background: #f5f5f5">
+                        <p class="title">Project: Systemy Baz Danych</p>
+                        <p >Kolos</p>
+                    </div>
+                    <div class="event start-12 end-2" style="background: #d5d5d5">
+                        <p class="title">Project: KCK</p>
+                        <p >Oddać 2 projekty</p>
+                    </div>
+                    </div>
+                </div>
+                <div class="day tues">
+                    <div class="date">
+                    <p class="date-num">12</p>
+                    <p class="date-day">Tues</p>
+                    </div>
+                    <div class="events">
+                        <div class="event start-10 end-12" style="background: #f5f5f5">
+                            <p class="title">Project: Coś w domu</p>
+                            <p >Zamówić nowe szafki do kuchni</p>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="day wed">
+                    <div class="date">
+                    <p class="date-num">11</p>
+                    <p class="date-day">Wed</p>
+                    </div>
+                    <div class="events">
+                        <div class="event start-10 end-12" style="background: #f5f5f5">
+                            <p class="title">Project: Nauka kodowania</p>
+                            <p >Zrobić wszystkie projekty</p>
+                        </div>
+                        <div class="event start-1 end-3" style="background: #d5d5d5">
+                            <p class="title">Project: Trening</p>
+                            <p >Trening siłowy</p>
+                        </div>
+                        <div class="event start-12 end-2" style="background: #e5c5a5">
+                            <p class="title">Project: Trening</p>
+                            <p >Trening Kalistenika</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="day thurs">
+                    <div class="date">
+                    <p class="date-num">12</p>
+                    <p class="date-day">Thurs</p>
+                    </div>
+                    <div class="events">
+                    <div class="event start-10 end-12 corp-fi">
+                        <p class="title">Project: Systemy Baz Danych</p>
+                        <p>Negocjacja o punkty z 1 etapu</p>
+                    </div>
+                    <div class="event start-1 end-4 ent-law">
+                        <p class="title">Project: Czytanie</p>
+                        <p >Doczytać "Krew Elfów"</p>
+                    </div>
+                    </div>
+                </div>
+                <div class="day fri">
+                    <div class="date">
+                    <p class="date-num">13</p>
+                    <p class="date-day">Fri</p>
+                    </div>
+                    <div class="events">
+                    </div>
+                </div>
+                </div>
+            </div>
+          </main>
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="newProjectDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add new project</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" >Add Project</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="newTaskDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add new task to the project</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" required>
+            <label for="name">Context:</label>
+            <input type="text" class="form-control" id="content" required>
+            <label for="name">Choose deadline data:</label>
+            <input type="date" class="form-control" data-provide="datepicker">
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" >Add Task</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+
+    var mainContent = document.getElementById('mainContent');
+    var optionsList = document.getElementById('optionsList');
+    var projectsList = document.getElementById('projectsList');
+    var newProjectDialog = document.getElementById('newProjectDialog');
+    var completedProjectsList = document.getElementById('completedProjectsList');
+
+    var projects = [
+    {
+      name: 'Project: Systemy Baz Danych',
+      tasks: [
+        { name: 'Task 1', content: 'Kolos', date: '2022-02-15', done: false },
+        { name: 'Task 2', content: 'etap 1', date: '2022-02-20', done: true },
+        { name: 'Task 3', content: 'etap 2', date: '2022-02-25', done: false }
+      ]
+    },
+    {
+      name: 'Project: Komunikacja człowiek komputer',
+      tasks: [
+        { name: 'Task 1', content: 'projekt 1', date: '2022-03-05', done: false },
+        { name: 'Task 2', content: 'projekt 2', date: '2022-03-10', done: true },
+        { name: 'Task 3', content: 'projekt 3', date: '2022-03-15', done: false }
+      ]
+    },
+    {
+      name: 'Project: Komponenty',
+      tasks: [
+        { name: 'Task 1', content: 'BackEnd', date: '2022-03-20', done: true },
+        { name: 'Task 2', content: 'FrontEnd', date: '2022-03-25', done: true },
+        { name: 'Task 3', content: 'BazaDanych', date: '2022-04-01', done: false }
+      ]
+    }
+  ];
+  
+  var projectsDone = [
+    {
+      name: 'Software Development',
+      tasks: [
+        { name: 'Task 1', content: 'zrobić A', date: '2022-05-10', done: true },
+        { name: 'Task 2', content: 'zrobić B', date: '2022-05-15', done: true },
+        { name: 'Task 3', content: 'zrobić C', date: '2022-05-20', done: true }
+      ]
+    },
+    {
+      name: 'Marketing Campaign',
+      tasks: [
+        { name: 'Task 1', content: 'zrobić D', date: '2022-05-12', done: true },
+      ]
+    },
+    {
+      name: 'Event Planning',
+      tasks: [
+        { name: 'task 1', content: 'zrobić E', date: '2022-06-02', done: true },
+        { name: 'task 2', content: 'zrobić F', date: '2022-06-08', done: true },
+        { name: 'task 3', content: 'zrobić G', date: '2022-06-15', done: true }
+      ]
+    }
+  ];
+
+
+  //eventListener for list options
+  optionsList.addEventListener('click', function (event) {
+    var targetOption = event.target;
+    if(targetOption.getAttribute('data-option') !== 'newProject'){
+      document.location.href = "/"+ targetOption.getAttribute('data-option') + '.html';
+    }
+  });
+
+
+
+
+  // show projects in view
+  projects.forEach(function (project) {
+    var projectItem = document.createElement('li');
+    projectItem.classList.add('list-group-item');
+    projectItem.setAttribute('data-option', project.name.toLowerCase().replace(' ', ''));
+    projectItem.textContent = project.name;
+    projectItem.addEventListener('click', function () {
+      
+      mainContent.innerHTML = 
+        '<h2>' + project.name + '</h2>' +
+        '<br>' +
+        '<button class="btn btn-primary" data-toggle="modal" data-target="#newTaskDialog" data-option="newTask">Add Task</button>' + 
+        '<hr>'+
+        '<ul>' +
+        project.tasks.map(task =>
+          '<li class="' + (task.done ? 'completed-task' : '') + '">' +
+          '<input type="checkbox" ' + (task.done ? 'checked' : '') +
+          ' onclick="toggleTaskCompletion(this, \'' + project.name + '\', \'' + task.name + '\')" > ' +
+          task.name + ': ' + task.content + ' (Date: ' + task.date + ')' +
+          '</li>').join('') +
+        '</ul>';
+    });
+    projectsList.appendChild(projectItem);
+  });
+
+  projectsDone.forEach(function (project) {
+    var projectItem = document.createElement('li');
+    projectItem.classList.add('list-group-item', 'completed-project');
+    projectItem.setAttribute('data-option', project.name.toLowerCase().replace(' ', ''));
+    projectItem.textContent = project.name;
+    projectItem.addEventListener('click', function () {
+      
+      mainContent.innerHTML = 
+        '<h2>' + project.name + '</h2>' +
+        '<br>' +
+        '<button class="btn btn-primary" data-toggle="modal" data-target="#newTaskDialog" data-option="newTask">Add Task</button>' + 
+        '<hr>'+
+        '<ul>' +
+        project.tasks.map(task =>
+          '<li class="' + (task.done ? 'completed-task' : '') + '">' +
+          '<input type="checkbox" ' + (task.done ? 'checked' : '') +
+          ' onclick="toggleTaskCompletion(this, \'' + project.name + '\', \'' + task.name + '\')" > ' +
+          task.name + ': ' + task.content + ' (Date: ' + task.date + ')' +
+          '</li>').join('') +
+        '</ul>';
+    });
+    completedProjectsList.appendChild(projectItem);
+  });
+
+  </script>
+
+
+
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>
